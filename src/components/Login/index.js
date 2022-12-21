@@ -55,7 +55,7 @@ class Login extends Component {
         <input
           type="password"
           id="password"
-          className="input-field"
+          className="password-input-field"
           placeholder="Password"
           value={password}
           onChange={this.onChangePassword}
@@ -74,7 +74,7 @@ class Login extends Component {
         <input
           type="text"
           id="username"
-          className="input-field"
+          className="username-input-field"
           placeholder="Username"
           value={username}
           onChange={this.onChangeUsername}
@@ -90,23 +90,23 @@ class Login extends Component {
       return <Redirect to="/" />
     }
     return (
-      <div className="login-form-container">
+      <div className="Login-background-container">
         <img
           src="https://res.cloudinary.com/dwtsapuyn/image/upload/v1645073768/bookhub-image_ubswwx.png"
           alt="login website logo"
-          className="login-website-logo-mobile-image"
+          className="website-mobile-image"
         />
         <img
           src="https://res.cloudinary.com/dwtsapuyn/image/upload/v1645073768/bookhub-image_ubswwx.png"
           alt="website login"
-          className="login-image"
+          className="website-image "
         />
-        <div className="form-main-container">
-          <form className="form-container" onSubmit={this.onSubmitForm}>
+        <div>
+          <form className="form" onSubmit={this.onSubmitForm}>
             <img
               src="https://res.cloudinary.com/dwtsapuyn/image/upload/v1645077666/book-hub-logo_dy4szt.png"
               alt="website logo"
-              className="login-website-logo-desktop-image"
+              className="logo-image"
             />
             <div className="input-container">{this.renderUsernameField()}</div>
             <div className="input-container">{this.renderPasswordField()}</div>
