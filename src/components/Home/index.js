@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
@@ -67,11 +68,6 @@ class Home extends Component {
     this.getTopRatedBooks()
   }
 
-  onClickFindBooks = () => {
-    const {history} = this.props
-    history.push('/shelf')
-  }
-
   getTopRatedBooks = async () => {
     this.setState({topRatedApiStatus: topRatedBooksApiStatuses.inProgress})
 
@@ -90,7 +86,7 @@ class Home extends Component {
       const updatedData = booksList.map(eachBook => ({
         id: eachBook.id,
         authorName: eachBook.author_name,
-        coverpic: eachBook.cover_pic,
+        coverPic: eachBook.cover_pic,
         title: eachBook.title,
       }))
       this.setState({
@@ -114,7 +110,7 @@ class Home extends Component {
     return (
       <Slider {...settings}>
         {topRatedBooks.map(eachBook => {
-          const {title, coverpic, id, authorName} = eachBook
+          const {title, coverPic, id, authorName} = eachBook
           const onClickedTopRatedBook = () => {
             const {history} = this.props
             history.push(`/books/${id}`)
@@ -130,16 +126,12 @@ class Home extends Component {
                 <div className="top-rated-book-image-container">
                   <img
                     className="top-rated-book-image"
-                    src={coverpic}
                     alt={title}
+                    src={coverPic}
                   />
                 </div>
-                <h1 key={title} className="top-rated-book-name">
-                  {title}
-                </h1>
-                <h1 key={authorName} className="top-rated-book-author">
-                  {authorName}
-                </h1>
+                <h1 className="top-rated-book-name">{title}</h1>
+                <p className="top-rated-book-author">{authorName}</p>
               </button>
             </div>
           )
@@ -209,13 +201,12 @@ class Home extends Component {
             <div className="slider-main-Container">
               <div className="text-container">
                 <h1 className="slider-heading">Top Rated Books</h1>
-                <button
-                  className="large-Find-Books-Button"
-                  type="button"
-                  onClick={this.onClickFindBooks}
-                >
-                  Find Books
-                </button>
+
+                <Link to="/shelf">
+                  <button type="button" className="large-Find-Books-Button">
+                    Find Books
+                  </button>
+                </Link>
               </div>
               <div className="slider">{this.renderSliderView()}</div>
             </div>

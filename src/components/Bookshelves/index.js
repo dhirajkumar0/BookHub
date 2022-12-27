@@ -4,7 +4,7 @@ import RightComponent from '../RightComponent'
 
 import './index.css'
 
-const BookShelves = () => (
+const Bookshelves = () => (
   <>
     <Header shelves />
     <div className="Book-Shelves-main-container">
@@ -13,4 +13,4 @@ const BookShelves = () => (
   </>
 )
 
-export default BookShelves
+export default Bookshelves

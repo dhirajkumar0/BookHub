@@ -9,11 +9,6 @@ import './index.css'
 class Header extends Component {
   state = {showHiddenNav: false}
 
-  onClickWebSiteLogo = () => {
-    const {history} = this.props
-    history.push('/')
-  }
-
   onClickCrossButton = () => {
     this.setState({showHiddenNav: false})
   }
@@ -38,12 +33,13 @@ class Header extends Component {
         <nav className="nav-header">
           <div className="nav-content">
             <div className="nav-bar-large-container">
-              <img
-                onClick={this.onClickWebSiteLogo}
-                className="logo-image"
-                alt="website logo"
-                src="https://res.cloudinary.com/dtayp31ut/image/upload/v1671001807/login-logo_l2egwj.jpg"
-              />
+              <Link to="/">
+                <img
+                  className="logo-image"
+                  alt="website logo"
+                  src="https://res.cloudinary.com/dtayp31ut/image/upload/v1671001807/login-logo_l2egwj.jpg"
+                />
+              </Link>
               <ul className="nav-menu">
                 <li className="nav-menu-item">
                   <Link to="/" className="nav-link">
@@ -92,7 +88,7 @@ class Header extends Component {
               <Link to="/">
                 <h1 className="mobile-nav-link">Home</h1>
               </Link>
-              <Link to="/shelves">
+              <Link to="/shelf">
                 <h1 className="mobile-nav-link">BookShelves</h1>
               </Link>
               <button

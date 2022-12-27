@@ -7,7 +7,10 @@
 }
 @media screen and (max-width: 786px) {
   .Right-Component-main-Container {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 15px;
   }
 }
 .filtered-item-main-Container {
@@ -19,6 +22,10 @@
   align-items: center;
   margin-top: 10px;
   flex-direction: column;
+}
+@media screen and (max-width: 786px) {
+  .filtered-item-main-Container {
+  }
 }
 
 .filtered-item-Container {
@@ -32,6 +39,11 @@
   color: white;
   align-items: center;
   margin-top: 10px;
+}
+@media screen and (max-width: 786px) {
+  .filtered-item-Container {
+    display: none;
+  }
 }
 .Right-component-heading {
   color: black;
@@ -257,4 +269,9 @@
 .mobile-rendered-books-container {
   display: flex;
   flex-direction: column;
+}
+@media screen and (min-width: 787px) {
+  .mobile-search-input-container {
+    display: none;
+  }
 }

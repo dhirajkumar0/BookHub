@@ -48,6 +48,7 @@ class RightComponent extends Component {
     searchInput: '',
     activeList: bookshelvesList[0].value,
     booksApiStatus: apiStatusConstants.initial,
+    activeValue: '',
   }
 
   componentDidMount() {
@@ -61,6 +62,7 @@ class RightComponent extends Component {
       readStatus: eachBook.read_status,
       rating: eachBook.rating,
       authorName: eachBook.author_name,
+
       coverPic: eachBook.cover_pic,
     }))
 
@@ -190,7 +192,7 @@ class RightComponent extends Component {
   }
 
   render() {
-    const {activeList, searchInput} = this.state
+    const {activeList, searchInput, activeValue} = this.state
     return (
       <>
         <LeftComponent
@@ -201,9 +203,10 @@ class RightComponent extends Component {
         <div className="Right-Component-main-Container">
           <div className="filtered-item-main-Container">
             <div className="filtered-item-Container">
-              <h1 className="Right-component-heading">{activeList} Books</h1>
+              <h1 className="Right-component-heading">{activeValue} Books</h1>
               <div className="search-input-container">
                 <input
+                  testid="searchButton"
                   placeholder="Search...."
                   type="search"
                   className="search-input"
@@ -219,65 +222,59 @@ class RightComponent extends Component {
                 </button>
               </div>
             </div>
+            <div className="mobile-search-input-container">
+              <input
+                testid="searchButton"
+                placeholder="Search...."
+                type="search"
+                className="mobile-search-input"
+                onChange={this.onChangeInput}
+                value={searchInput}
+              />
+              <button
+                className="mobile-search-btn"
+                onClick={this.onChangeInput}
+                type="button"
+              >
+                <BsSearch className="search=icon" />
+              </button>
+              <h1 className="mobile-bookshelves-heading">Bookshelves</h1>
+              <ul className="mobile-filter-un-order-list-container">
+                {bookshelvesList.map(eachItem => {
+                  const activeFilterClass =
+                    activeList === eachItem.value ? 'active-filter-mobile' : ''
+                  const onClickedFilter = () => {
+                    this.setState(
+                      {
+                        activeList: eachItem.value,
+                        activeValue: eachItem.label,
+                      },
+                      this.getBooksApiData,
+                    )
+                  }
+                  return (
+                    <li
+                      className="mobile-active-filter-list1"
+                      key={eachItem.label}
+                    >
+                      <button
+                        className={`mobile-active-filter-list ${activeFilterClass}`}
+                        onClick={onClickedFilter}
+                        type="button"
+                      >
+                        {eachItem.label}
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+
             <div>{this.renderBooks()}</div>
           </div>
 
           <div className="Footer">
             <Footer />
-          </div>
-        </div>
-
-        <div className="mobile-bookshelf-and-list-items-container">
-          <div className="mobile-search-input-container">
-            <input
-              placeholder="Search...."
-              type="search"
-              className="mobile-search-input"
-              onChange={this.onChangeInput}
-              value={searchInput}
-            />
-            <button
-              className="mobile-search-btn"
-              onClick={this.onChangeInput}
-              type="button"
-            >
-              <BsSearch className="search=icon" />
-            </button>
-            <h1 className="mobile-bookshelves-heading">Bookshelves</h1>
-            <ul className="mobile-filter-un-order-list-container">
-              {bookshelvesList.map(eachItem => {
-                const activeFilterClass =
-                  activeList === eachItem.value ? 'active-filter-mobile' : ''
-                const onClickedFilter = () => {
-                  this.setState(
-                    {
-                      activeList: eachItem.value,
-                    },
-                    this.getBooksApiData,
-                  )
-                }
-                return (
-                  <li
-                    className="mobile-active-filter-list1"
-                    key={eachItem.label}
-                  >
-                    <button
-                      className={`mobile-active-filter-list ${activeFilterClass}`}
-                      onClick={onClickedFilter}
-                      type="button"
-                    >
-                      {eachItem.label}
-                    </button>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-          <div className="mobile-rendered-books-container">
-            {this.renderBooks()}
-            <div className="Footer">
-              <Footer />
-            </div>
           </div>
         </div>
       </>
