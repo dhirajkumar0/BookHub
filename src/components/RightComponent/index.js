@@ -49,6 +49,7 @@ class RightComponent extends Component {
     activeList: bookshelvesList[0].value,
     booksApiStatus: apiStatusConstants.initial,
     activeValue: '',
+    search: '',
   }
 
   componentDidMount() {
@@ -69,8 +70,8 @@ class RightComponent extends Component {
   getBooksApiData = async () => {
     this.setState({booksApiStatus: apiStatusConstants.inProgress})
 
-    const {searchInput, activeList} = this.state
-    const booksApi = `https://apis.ccbp.in/book-hub/books?shelf=${activeList}&search=${searchInput}`
+    const {search, activeList} = this.state
+    const booksApi = `https://apis.ccbp.in/book-hub/books?shelf=${activeList}&search=${search}`
 
     const jwtToken = Cookies.get('jwt_token')
     const options = {
@@ -98,7 +99,14 @@ class RightComponent extends Component {
   }
 
   onChangeInput = event => {
-    this.setState({searchInput: event.target.value}, this.getBooksApiData)
+    this.setState({searchInput: event.target.value})
+  }
+
+  onSearchBooks = () => {
+    this.setState(
+      prevState => ({search: prevState.searchInput}),
+      this.getBooksApiData,
+    )
   }
 
   renderNoMatchBooks = () => {
@@ -151,7 +159,7 @@ class RightComponent extends Component {
   }
 
   renderBooksProgressView = () => (
-    <div className="loader-container">
+    <div testid="loader" className="loader-container">
       <Loader type="TailSpin" color="#8284C7" height={32} width={32} />
     </div>
   )
@@ -206,7 +214,6 @@ class RightComponent extends Component {
               <h1 className="Right-component-heading">{activeValue} Books</h1>
               <div className="search-input-container">
                 <input
-                  testid="searchButton"
                   placeholder="Search...."
                   type="search"
                   className="search-input"
@@ -214,8 +221,9 @@ class RightComponent extends Component {
                   value={searchInput}
                 />
                 <button
+                  testid="searchButton"
                   className="search-btn"
-                  onClick={this.onChangeInput}
+                  onClick={this.onSearchBooks}
                   type="button"
                 >
                   <BsSearch className="search=icon" />
@@ -224,7 +232,6 @@ class RightComponent extends Component {
             </div>
             <div className="mobile-search-input-container">
               <input
-                testid="searchButton"
                 placeholder="Search...."
                 type="search"
                 className="mobile-search-input"
@@ -232,8 +239,9 @@ class RightComponent extends Component {
                 value={searchInput}
               />
               <button
+                testid="searchButton"
                 className="mobile-search-btn"
-                onClick={this.onChangeInput}
+                onClick={this.onSearchBooks}
                 type="button"
               >
                 <BsSearch className="search=icon" />
